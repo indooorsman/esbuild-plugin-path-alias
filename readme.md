@@ -1,3 +1,31 @@
 # esbuild-plugin-path-alias
 
-A esbuild plugin to support module/path alias like that in webpack/tsconfig.
+A esbuild plugin to support path alias like `resolve.alias` in webpack config.
+
+## Usage
+
+```bash
+npm install -D esbuild-plugin-path-alias
+```
+
+```js
+const esbuild = require('esbuild');
+const aliasPlugin = require('esbuild-plugin-path-alias');
+const path = require('path');
+
+esbuild.build({
+  entryPoints: [path.resolve(__dirname, './app/app.jsx')],
+  bundle: true,
+  outdir: 'dist',
+  external: ['react'],
+  plugins: [
+    aliasPlugin({
+      // must be absolute path
+      '@': path.resolve(__dirname, './app/component')
+    })
+  ],
+  logLevel: 'debug'
+});
+```
+
+See [test](./test/) for details.
