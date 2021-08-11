@@ -28,4 +28,4 @@ esbuild.build({
 });
 ```
 
-See [test](./test/) for details.
+See [test](https://github.com/indooorsman/esbuild-plugin-path-alias/tree/main/test) for details.
