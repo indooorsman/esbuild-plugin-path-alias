@@ -1,0 +1,19 @@
+{
+  "name": "esbuild-plugin-path-alias",
+  "version": "1.0.0",
+  "description": "A esbuild plugin to support module/path alias like that in webpack/tsconfig.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./test"
+  },
+  "keywords": [
+    "alias",
+    "path",
+    "esbuild",
+    "plugin",
+    "webpack",
+    "tsconfig"
+  ],
+  "author": "indooorsman@gmail.com",
+  "license": "MIT"
+}
