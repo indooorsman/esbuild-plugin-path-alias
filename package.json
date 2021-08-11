@@ -1,6 +1,6 @@
 {
   "name": "esbuild-plugin-path-alias",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A esbuild plugin to support path alias like `resolve.alias` in webpack config.",
   "main": "index.js",
   "scripts": {
@@ -16,6 +16,7 @@
   ],
   "author": "indooorsman@gmail.com",
   "license": "MIT",
+  "repository": "https://github.com/indooorsman/esbuild-plugin-path-alias.git",
   "devDependencies": {
     "esbuild": "^0.12.19"
   }
