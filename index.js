@@ -72,13 +72,18 @@ const aliasPlugin = (config) => {
         return;
       }
 
+      const { logLevel } = build.initialOptions;
+      const outputLogs = logLevel === 'debug' || logLevel === 'verbose';
+
       const main = (k, args) => {
         const targetPath = config[k].replace(/\/$/, '');
-        const patchedPath = patchExtension(args.path
-          .replace(new RegExp(`^${k}\\/`), targetPath + '/')
-          .replace(new RegExp(`^${k}$`), targetPath));
-        console.log(
-          `${new Date().toLocaleTimeString()} [esbuild-plugin-path-alias] `,
+        const patchedPath = patchExtension(
+          args.path
+            .replace(new RegExp(`^${k}\\/`), targetPath + '/')
+            .replace(new RegExp(`^${k}$`), targetPath)
+        );
+        outputLogs && console.log(
+          `${new Date().toLocaleTimeString()} [plugin-path-alias] `,
           args.path,
           '=>',
           patchedPath
