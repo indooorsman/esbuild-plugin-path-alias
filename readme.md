@@ -1,6 +1,6 @@
 # esbuild-plugin-path-alias
 
-[![npm version](https://img.shields.io/npm/v/esbuild-plugin-path-alias.svg?style=flat)](https://www.npmjs.com/package/esbuild-css-modules-plugin)
+[![npm version](https://img.shields.io/npm/v/esbuild-plugin-path-alias.svg?style=flat)](https://www.npmjs.com/package/esbuild-plugin-path-alias)
 [![test](https://github.com/indooorsman/esbuild-plugin-path-alias/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/indooorsman/esbuild-plugin-path-alias/actions/workflows/test.yml)
 
 A esbuild plugin to support path alias like `resolve.alias` in webpack config.
