@@ -2,6 +2,22 @@ const fs = require('fs');
 const path = require('path');
 const extensions = ['js', 'jsx', 'ts', 'tsx', 'cjs', 'mjs', 'cjsx', 'mjsx'];
 
+const readFromPackage = (dir) => {
+  const manifestFile = path.resolve(dir, './package.json');
+  let isExisted = true;
+  try {
+    fs.accessSync(manifestFile, fs.constants.F_OK);
+  } catch (e) {
+    isExisted = false;
+  }
+  if (!isExisted) {
+    return dir;
+  }
+  const detail = JSON.parse(fs.readFileSync(manifestFile, {encoding: 'utf8'}))
+  const entry = detail.module || detail.main;
+  return path.resolve(dir, entry);
+};
+
 const patchExtension = (p) => {
   let isExisted = true;
   try {
@@ -45,6 +61,7 @@ const patchExtension = (p) => {
     if (ext) {
       return path.resolve(p, `./index.${ext}`);
     }
+    return readFromPackage(p);
   }
   return p;
 };
@@ -79,8 +96,8 @@ const aliasPlugin = (config) => {
         const targetPath = config[k].replace(/\/$/, '');
         const patchedPath = patchExtension(
           args.path
-            .replace(new RegExp(`^${k}\\/`), targetPath + '/')
-            .replace(new RegExp(`^${k}$`), targetPath)
+            .replace(new RegExp(`^.*${k}\\/`), targetPath + '/')
+            .replace(new RegExp(`^.*${k}$`), targetPath)
         );
         outputLogs && console.log(
           `${new Date().toLocaleTimeString()} [plugin-path-alias] `,
@@ -94,10 +111,10 @@ const aliasPlugin = (config) => {
       };
 
       alias.forEach((k) => {
-        build.onResolve({ filter: new RegExp(`^${k}$`) }, (args) => {
+        build.onResolve({ filter: new RegExp(`^.*${k}$`) }, (args) => {
           return main(k, args);
         });
-        build.onResolve({ filter: new RegExp(`^${k}\\/.*$`) }, (args) => {
+        build.onResolve({ filter: new RegExp(`^.*${k}\\/.*$`) }, (args) => {
           return main(k, args);
         });
       });
